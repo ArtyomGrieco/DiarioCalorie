@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+
+    <title>Storico</title>
+    <meta charset="UTF-8" />
+
+    <style>
+        /* Sfondo spaziale viola-rosato */
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://th.bing.com/th/id/R.0e19205114db5ca87a07203aac346eca?rik=4NQ%2fe63fmNvvoA&pid=ImgRaw&r=0');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-blend-mode: multiply;
+            background-color: rgba(20, 0, 40, 0.8);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+                header {
+          width: 100%;
+          margin: 0;
+          background: linear-gradient(135deg, #6a0572, #b13a8d);
+          padding: 12px 0;
+          position: sticky; /* rimane in cima quando scrolli */
+          top: 0;
+          z-index: 100;
+          box-shadow: 0 2px 8px rgba(107, 11, 80, 0.8);
+          text-align: center;
+        }
+
+        nav a {
+          color: #f72585;
+          font-weight: 700;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 1.1rem;
+          transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+          color: #fff;
+          text-shadow: 0 0 8px #f72585;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 0 0 8px #d6336c;
+        }
+
+        ul#lista-giorni {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        ul#lista-giorni li {
+            background: linear-gradient(135deg, #2e004f, #d6336c);
+            padding: 12px 18px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 15px #d6336caa;
+            font-weight: 600;
+        }
+
+        ul#lista-giorni li button {
+            background: transparent;
+            border: 2px solid #f72585;
+            color: #f72585;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.3s, color 0.3s;
+            margin-left: 10px;
+        }
+
+        ul#lista-giorni li button:hover {
+            background-color: #f72585;
+            color: white;
+        }
+
+        #dettagli-giorno {
+            background: linear-gradient(135deg, #2e004f, #d6336c);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 20px #d6336cbb;
+            display: none;
+            text-align: left;
+        }
+
+        #dettagli-giorno h3 {
+            margin-top: 0;
+            color: #f72585;
+            text-shadow: 0 0 5px #d6336c;
+        }
+
+        #dettagli-giorno h4 {
+            margin-bottom: 10px;
+            margin-top: 20px;
+            color: #f72585;
+            text-shadow: 0 0 4px #d6336c;
+        }
+
+        #lista-cibi-giorno {
+            list-style-type: disc;
+            padding-left: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            color: #f0e6f6;
+        }
+
+        #lista-cibi-giorno li {
+            margin-bottom: 6px;
+        }
+
+        /* Scrollbar personalizzata per la lista cibi */
+        #lista-cibi-giorno::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #lista-cibi-giorno::-webkit-scrollbar-thumb {
+            background: #d6336c;
+            border-radius: 4px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="home.html">Oggi</a> |
+            <a href="storico.html">Storico</a> |
+        </nav>
+    </header>
+
+    <h2>Storico giornate:</h2>
+    <ul id="lista-giorni"></ul>
+
+    <div id="dettagli-giorno" style="margin-top:20px; border:1px solid #ccc; padding:10px; display:none;">
+        <h3>Dettagli giornata: <span id="giorno-selezionato"></span></h3>
+        <p>Calorie totali: <span id="calorie"></span></p>
+        <p>Proteine totali: <span id="proteine"></span> g</p>
+        <p>Grassi totali: <span id="grassi"></span> g</p>
+        <p>Carboidrati totali: <span id="carboidrati"></span> g</p>
+        <p>Fibre totali: <span id="fibre"></span> g</p>
+        <h4>Cibi inseriti:</h4>
+        <ul id="lista-cibi-giorno"></ul>
+    </div>
+
+    <script>
+        let giornoAttualmenteMostrato = null;
+
+        function caricaGiorniStorico() {
+            const listaGiorni = document.getElementById('lista-giorni'); 
+            listaGiorni.innerHTML = '';
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+
+                const li = document.createElement('li');
+                li.textContent = key;
+
+                const btnDettagli = document.createElement('button');
+                btnDettagli.textContent = '➕ informazioni';
+                btnDettagli.style.cursor = 'pointer';
+                btnDettagli.style.marginLeft = '10px';
+
+                btnDettagli.addEventListener('click', () => {
+                    mostraDettagliGiorno(key);
+                });
+
+                const btnCancella = document.createElement('button');
+                btnCancella.textContent = '🧹 Pulisci giornata';
+                btnCancella.style.marginLeft = '10px';
+
+                btnCancella.addEventListener('click', () => {
+                    localStorage.removeItem(key);
+                    li.remove(); 
+                    alert(`Dati del giorno ${key} cancellati!`);
+
+                    // Se stavamo visualizzando i dettagli di questo giorno, nascondili
+                    if (giornoAttualmenteMostrato === key) {
+                        document.getElementById('dettagli-giorno').style.display = 'none';
+                        giornoAttualmenteMostrato = null;
+                    }
+                });
+
+                li.appendChild(btnDettagli);
+                li.appendChild(btnCancella);
+                listaGiorni.appendChild(li);
+            }
+        }
+
+        function mostraDettagliGiorno(data) {
+            const dettagliBox = document.getElementById('dettagli-giorno');
+
+            if (giornoAttualmenteMostrato === data) {
+                dettagliBox.style.display = 'none';
+                giornoAttualmenteMostrato = null;
+                return;
+            }
+
+            const datiSalvati = localStorage.getItem(data);
+            if (!datiSalvati) {
+                alert('Nessun dato per questo giorno!');
+                return;
+            }
+
+            const datiGiorno = JSON.parse(datiSalvati);
+
+            document.getElementById('giorno-selezionato').textContent = data;
+            document.getElementById('calorie').textContent = datiGiorno.calorie || 0;
+            document.getElementById('proteine').textContent = (datiGiorno.proteine || 0).toFixed(1);
+            document.getElementById('grassi').textContent = (datiGiorno.grassi || 0).toFixed(1);
+            document.getElementById('carboidrati').textContent = (datiGiorno.carboidrati || 0).toFixed(1);
+            document.getElementById('fibre').textContent = (datiGiorno.fibre || 0).toFixed(1);
+
+            const listaCibiGiorno = document.getElementById('lista-cibi-giorno');
+            listaCibiGiorno.innerHTML = '';
+            (datiGiorno.cibi || []).forEach(cibo => {
+                const li = document.createElement('li');
+                li.textContent = cibo;
+                listaCibiGiorno.appendChild(li);
+            });
+
+            dettagliBox.style.display = 'block';
+            giornoAttualmenteMostrato = data;
+        }
+
+        caricaGiorniStorico();
+    </script>
+
+</body>
+</html>

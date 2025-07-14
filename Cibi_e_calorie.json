@@ -1,0 +1,211 @@
+{
+    "poké con pollo piccolo": {
+        "unità": "porzione",
+        "calorie": 525,
+        "carboidrati": 28,
+        "proteine": 35, 
+        "grassi": 9.2,
+        "fibre": 2.8
+    },
+    "poké con pollo medio": {
+        "unità": "porzione",
+        "calorie": 787,
+        "carboidrati": 42,
+        "proteine": 52, 
+        "grassi": 13.8,
+        "fibre": 4.2
+    },
+    "poké con pollo grande": {
+        "unità": "porzione",
+        "calorie": 1060,
+        "carboidrati": 56,
+        "proteine": 70, 
+        "grassi": 18.4,
+        "fibre": 5.6
+    },
+    "pasta al sugo": {
+        "unità":"grammi",
+        "calorie": 370,
+        "carboidrati": 72,
+        "proteine": 12, 
+        "grassi": 2,
+        "fibre": 4
+    },
+    "cotoletta di pollo fritta": {
+        "unità": "porzione",
+        "calorie": 290,
+        "carboidrati": 12,
+        "proteine": 21, 
+        "grassi": 15,
+        "fibre": 0.5
+    },
+    "cotoletta di pollo al forno": {
+        "unità": "porzione",
+        "calorie": 220,
+        "carboidrati": 12,
+        "proteine": 21, 
+        "grassi": 15,
+        "fibre": 0.5
+    },
+    "poké con salmone piccolo": {
+        "unità": "porzione",
+        "calorie": 565,
+        "carboidrati": 28,
+        "proteine": 26, 
+        "grassi": 15,
+        "fibre": 2.8
+    },
+    "poké con salmone medio": {
+        "unità": "porzione",
+        "calorie": 847,
+        "carboidrati": 42,
+        "proteine": 39, 
+        "grassi": 21,
+        "fibre": 4.2
+    },
+    "poké con salmone grande": {
+        "unità": "porzione",
+        "calorie": 1130,
+        "carboidrati": 56,
+        "proteine": 54, 
+        "grassi": 30,
+        "fibre": 5.6
+    },
+    "sushi (nigiri di salmone)": {
+        "unità": "porzione",
+        "calorie": 50,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (nigiri di tonno)": {
+        "unità": "porzione",
+        "calorie": 45,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (roll al cetriolo)": {
+        "unità": "porzione",
+        "calorie": 22,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (avocado roll)": {
+        "unità": "porzione",
+        "calorie": 23,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (california roll)": {
+        "unità": "porzione",
+        "calorie": 42,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (tempura roll)": {
+        "unità": "porzione",
+        "calorie": 80,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (hosomaki al cetriolo)": {
+        "unità": "porzione",
+        "calorie": 15,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (hosomaki al tonno)": {
+        "unità": "porzione",
+        "calorie": 20,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (hosomaki al salmone)": {
+        "unità": "porzione",
+        "calorie": 25,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (sashimi di salmone)": {
+        "unità": "porzione",
+        "calorie": 45,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (sashimi di gamberetto)": {
+        "unità": "porzione",
+        "calorie": 30,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (sashimi di tonno)": {
+        "unità": "porzione",
+        "calorie": 40,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+    },
+    "sushi (ravioli al vapore)": {
+        "unità": "porzione",
+        "calorie": 200,
+        "carboidrati": 0,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 0
+        
+    },
+    "latte intero (~100ml)": {
+        "unità": "grammi",
+        "calorie": 64,
+        "carboidrati": 4.8,
+        "proteine": 3.3, 
+        "grassi": 3.6,
+        "fibre": 0
+    },
+    "latte parzialmente scremato (~100ml)": {
+        "unità": "grammi",
+        "calorie": 46,
+        "carboidrati": 4.8,
+        "proteine": 3.3, 
+        "grassi": 1.5,
+        "fibre": 0
+    },
+    "latte scremato (~100ml)": {
+        "unità": "grammi",
+        "calorie": 64,
+        "carboidrati": 4.8,
+        "proteine": 3.3, 
+        "grassi": 0.5,
+        "fibre": 0
+    },
+    "pan di stelle": {
+        "unità": "porzione",
+        "calorie": 38,
+        "carboidrati": 5,
+        "proteine": 0.6, 
+        "grassi": 0.6,
+        "fibre": 0
+    }
+}

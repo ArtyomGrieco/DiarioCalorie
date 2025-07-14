@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="it">
+    
+<head>
+
+    <meta charset="UTF-8">
+    <title>T.V.B.♥</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        /* Sfondo spazio viola-rosato */
+        body {
+          margin: 0;
+          padding: 0;
+          height: 100vh;
+          background: linear-gradient(135deg, #6a0572, #b13a8d);
+          background-image: url('https://img.wallpapic.it/i8959-323-227/medium/galassia-viola-spazio-esterno-nebulosa-sfondo.jpg');
+          background-blend-mode: multiply;
+          background-size: cover;
+          background-position: center;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          color: white;
+          text-align: center;
+        }
+
+        header {
+          width: 100%;
+          margin: 0;
+          background: linear-gradient(135deg, #6a0572, #b13a8d);
+          padding: 12px 0;
+          position: sticky; /* rimane in cima quando scrolli */
+          top: 0;
+          z-index: 100;
+          box-shadow: 0 2px 8px rgba(107, 11, 80, 0.8);
+          text-align: center;
+        }
+
+        nav a {
+          color: #f72585;
+          font-weight: 700;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 1.1rem;
+          transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+          color: #fff;
+          text-shadow: 0 0 8px #f72585;
+        }
+
+        main {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: calc(100vh - 60px); /* sottrae l'altezza dell'header */
+          padding-top: 20px;
+        }
+
+        /* Bottone centrato e rotondo */
+        button {
+          padding: 12px 20px;
+          background-color: #00aaff; /* viola */
+          border: none;
+          border-radius: 25px;
+          color: white;
+          font-weight: 600;
+          font-size: 1.1rem;
+          cursor: pointer;
+          margin-top: 10px;
+          box-shadow: 0 0 15px #00aaff;
+          transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+          background-color: #b801b5;
+        }
+
+        /* Lista dei cibi */
+        #lista-cibi {
+          list-style-type: none;
+          padding: 0;
+          margin-top: 15px;
+          color: #ddd;
+          font-weight: 500;
+          font-size: 1.1rem;
+        }
+
+        #lista-cibi li {
+          background: linear-gradient(135deg, #4e00ca, #a362b9);
+          margin-bottom: 12px;
+          padding: 12px 18px;
+          border-radius: 15px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          box-shadow: 0 4px 8px rgba(115, 54, 140, 0.5);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          cursor: default;
+        }
+
+        #lista-cibi li:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 16px rgba(115, 54, 140, 0.8);
+        }
+
+        /* Bottone rimuovi piccolo */
+        #lista-cibi button {
+          background-color: #e74c3c;
+          box-shadow: none;
+          border-radius: 50%;
+          padding: 4px 8px;
+          font-size: 1rem;
+          margin-left: 10px;
+          transition: background-color 0.3s ease;
+        }
+
+        #lista-cibi button:hover {
+          background-color: #c0392b;
+        }
+
+        .autocomplete-wrapper {
+          position: relative;
+          width: 100%;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+
+        #dropdown {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          display: none;
+          background: linear-gradient(135deg, #5e01ab, #d78adf);
+          border: 2px solid #b65bc9;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(139, 66, 166, 0.4);
+          max-height: 200px;
+          overflow-y: auto;
+          z-index: 100;
+          padding: 6px 0;
+          margin-top: 4px;
+        }
+
+        #dropdown div {
+          padding: 10px 16px;
+          cursor: pointer;
+          color: #fff;
+          font-weight: 500;
+          transition: background 0.2s ease;
+        }
+
+        #dropdown div:hover {
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(2px);
+        }
+
+        .input-cibo {
+          width: 400px;
+          padding: 15px;
+          border-radius: 10px;
+          border: none;
+          background-color: #4e00ca;
+          font-size: 16px;
+          box-sizing: border-box;
+          display: block;
+          box-shadow: 0 0 5px rgba(0,0,0,0.1);
+          margin: 10px auto;
+        }
+
+        .input-cibo:focus {
+          outline: none;
+          background-color: #6826c9;
+        }
+
+        .dettagli {
+          background: linear-gradient(135deg, #4e00ca, #a362b9);
+          border-radius: 12px;
+          padding: 15px;
+          margin-top: 15px;
+          width: 300px;
+          box-shadow: 0 0 10px rgba(200, 100, 200, 0.2);
+          text-align: left;
+          transition: all 0.3s ease-in-out;
+        }
+
+        /* Pulsante più info */
+        .toggle-info {
+          background-color: transparent;
+          color: #d3b3d9;
+          font-size: 1rem;
+          border: 2px solid #d3b3d9;
+          border-radius: 20px;
+          padding: 8px 16px;
+          margin-bottom: 15px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .toggle-info:hover {
+          background-color: #d3b3d9;
+          color: #4a2c53cc;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="home.html">Oggi</a> |
+            <a href="storico.html">Storico</a> |
+        </nav>
+    </header>
+
+    <main>
+
+        <h1>
+            Oggi <span id="data-odierna"></span>
+            <br>Calorie totali: <span id="calorie-totali"></span>
+        </h1>
+
+        <button id="piuinfo" class="toggle-info">Più info</button>
+
+        <div id="piudettagli" class="dettagli">
+            <p><strong>Proteine totali:</strong> <span id="proteine-totali">0</span> g</p>
+            <p><strong>Grassi totali:</strong> <span id="grassi-totali">0</span> g</p>
+            <p><strong>Carboidrati totali:</strong> <span id="carboidrati-totali">0</span> g</p>
+            <p><strong>Fibre totali:</strong> <span id="fibre-totali">0</span> g</p>
+        </div>
+
+        <!-- script per la data -->
+        <script>
+            const oggi = new Date();
+            const opzioni = { weekday: 'long', year:'numeric', month:'long', day:'numeric'};
+            document.getElementById('data-odierna').textContent = oggi.toLocaleDateString('it-IT', opzioni);
+        </script>
+
+        <form id="cibo">
+
+            <div class="autocomplete-wrapper"> 
+                <input type="text" id="menu_cibo" class="input-cibo" placeholder="Cosa hai mangiato?" autocomplete="off">
+                <div id="dropdown"></div>
+            </div>
+
+            <input type="number" id="quantità" class="input-cibo" placeholder="quantita" min="1" step="1">
+            <span id="unita-quantita"></span>
+            <button type="submit">Aggiungi</button>
+
+        </form>
+
+        <div id="risultati">
+
+            <h2>Cibi inseriti:</h2>
+            <ul id="lista-cibi"></ul>
+
+        </div>
+
+    </main>
+
+    <script>
+        const dataChiave = oggi.toLocaleDateString('it-IT');
+
+        let dati = {};
+        let cibiInseriti = [];
+        let totaleCalorie = 0;
+
+        let totaleProteine = 0;
+        let totaleGrassi = 0;
+        let totaleFibre = 0;
+        let totaleCarboidrati = 0;
+
+        fetch('Cibi_e_calorie.json')
+            .then(res => {
+                if (!res.ok) throw new Error('Errore caricamento JSON');
+                return res.json();
+            })
+            .then(json => {
+                dati = json;
+                caricaLocal();
+            })
+            .catch(err => console.error(err));
+
+        function caricaLocal() {
+            const datiSalvati = localStorage.getItem(dataChiave);
+            if (!datiSalvati) return;
+
+            const datiGiorno = JSON.parse(datiSalvati);
+
+            cibiInseriti = datiGiorno.cibi || [];
+            totaleCalorie = datiGiorno.calorie || 0;
+            totaleProteine = datiGiorno.proteine || 0;
+            totaleGrassi = datiGiorno.grassi || 0;
+            totaleCarboidrati = datiGiorno.carboidrati || 0;
+            totaleFibre = datiGiorno.fibre || 0;
+
+            totaleCalorieSpan.textContent = totaleCalorie;
+            totaleProteineSpan.textContent = totaleProteine.toFixed(1);
+            totaleGrassiSpan.textContent = totaleGrassi.toFixed(1);
+            totaleCarboidratiSpan.textContent = totaleCarboidrati.toFixed(1);
+            totaleFibreSpan.textContent = totaleFibre.toFixed(1);
+        }
+
+        const input = document.getElementById('menu_cibo');
+        const dropdown = document.getElementById('dropdown');
+        const listaCibi = document.getElementById('lista-cibi');
+        const totaleCalorieSpan = document.getElementById('calorie-totali');
+        const form = document.getElementById('cibo');
+
+        const totaleProteineSpan = document.getElementById('proteine-totali');
+        const totaleGrassiSpan = document.getElementById('grassi-totali');
+        const totaleCarboidratiSpan = document.getElementById('carboidrati-totali');
+        const totaleFibreSpan = document.getElementById('fibre-totali');
+
+        const btnTotali = document.getElementById('piuinfo');
+        const dettagliTotali = document.getElementById('piudettagli');
+
+        dettagliTotali.style.display = 'none';
+        btnTotali.textContent = '➕ Più info';
+        btnTotali.addEventListener('click', () => {
+            if (dettagliTotali.style.display === 'none') {
+                dettagliTotali.style.display = 'block';
+                btnTotali.textContent = '➖ Meno info';
+            } else {
+                dettagliTotali.style.display = 'none';
+                btnTotali.textContent = '➕ Più info';
+            }
+        });
+
+        function mostraOpzioni(filtro) {
+            dropdown.innerHTML = '';
+            const cibi = Object.keys(dati);
+            const filtrati = cibi.filter(cibo => cibo.toLowerCase().includes(filtro.toLowerCase()));
+
+            if (filtrati.length === 0) {
+                dropdown.style.display = 'none';
+                return;
+            }
+
+            filtrati.forEach(nomeCibo => {
+                const div = document.createElement('div');
+                div.textContent = nomeCibo;
+                div.onclick = () => {
+                    input.value = nomeCibo;
+                    dropdown.style.display = 'none';
+
+                    const unitaQuantita = document.getElementById('unita-quantita');
+                    const unita = dati[nomeCibo]?.unità || "";
+                    unitaQuantita.textContent = unita === "grammi" ? "g" : 
+                                                unita === "porzione" ? "porzione(i)" : 
+                                                unita;
+                };
+                dropdown.appendChild(div);
+            });
+
+            dropdown.style.display = 'block';
+        }
+
+        input.addEventListener('input', () => {
+            const testo = input.value.trim();
+            if (testo.length === 0 ) {
+                dropdown.style.display = 'none';
+                return;
+            }
+            mostraOpzioni(testo);
+        });
+
+        document.addEventListener('click', e => {
+            if (e.target !== input) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            const ciboSelezionato = input.value.trim();
+            const quantita = parseInt(document.getElementById('quantità').value, 10);
+
+            if (!dati[ciboSelezionato]) {
+                alert('Cibo non trovato, scrivimi che lo aggiungo alla lista T^T');
+                return;
+            }
+
+            if (isNaN(quantita) || quantita <= 0) {
+                alert('Inserisci una quantità valida!');
+                return;
+            }
+
+            const info = dati[ciboSelezionato];
+            const unita = info.unità;
+
+            let moltiplicatore = 1;
+
+            if (unita === "grammi") {
+                moltiplicatore = quantita / 100;
+            } else {
+                moltiplicatore = quantita; // ad esempio: 2 porzioni = 2x i valori base
+            }
+
+            const cal = info.calorie * moltiplicatore;
+            const pro = info.proteine * moltiplicatore;
+            const gra = info.grassi * moltiplicatore;
+            const car = info.carboidrati * moltiplicatore;
+            const fib = info.fibre * moltiplicatore;
+
+            totaleCalorie += cal;
+            totaleProteine += pro;
+            totaleGrassi += gra;
+            totaleCarboidrati += car;
+            totaleFibre += fib;
+
+            totaleCalorieSpan.textContent = totaleCalorie.toFixed(1);
+            totaleProteineSpan.textContent = totaleProteine.toFixed(1);
+            totaleGrassiSpan.textContent = totaleGrassi.toFixed(1);
+            totaleCarboidratiSpan.textContent = totaleCarboidrati.toFixed(1);
+            totaleFibreSpan.textContent = totaleFibre.toFixed(1);
+
+            const li = document.createElement('li');
+            li.textContent = `${ciboSelezionato} (${quantita} ${unita}) - ${cal.toFixed(1)} kcal`;
+
+            const btnRimuovi = document.createElement('button');
+            btnRimuovi.textContent = '❌';
+            btnRimuovi.style.marginLeft = '10px';
+
+            btnRimuovi.addEventListener('click', () => {
+                listaCibi.removeChild(li);
+
+                totaleCalorie -= cal;
+                totaleProteine -= pro;
+                totaleGrassi -= gra;
+                totaleCarboidrati -= car;
+                totaleFibre -= fib;
+
+                totaleCalorieSpan.textContent = totaleCalorie.toFixed(1);
+                totaleProteineSpan.textContent = totaleProteine.toFixed(1);
+                totaleGrassiSpan.textContent = totaleGrassi.toFixed(1);
+                totaleCarboidratiSpan.textContent = totaleCarboidrati.toFixed(1);
+                totaleFibreSpan.textContent = totaleFibre.toFixed(1);
+
+                const index = cibiInseriti.indexOf(ciboSelezionato);
+                if (index > -1) {
+                    cibiInseriti.splice(index, 1);
+                }
+
+                salvaLocal();
+            });
+
+            li.appendChild(btnRimuovi);
+            listaCibi.appendChild(li);
+
+            cibiInseriti.push(ciboSelezionato);
+            input.value = '';
+            document.getElementById('quantità').value = '';
+
+            salvaLocal();
+        });
+
+        function salvaLocal() {
+            const datiGiorno = {
+                cibi: cibiInseriti,
+                calorie: totaleCalorie,
+                proteine: totaleProteine,
+                grassi: totaleGrassi,
+                carboidrati: totaleCarboidrati,
+                fibre: totaleFibre
+            };
+
+            localStorage.setItem(dataChiave, JSON.stringify(datiGiorno));
+        }
+
+    </script>
+
+</body>
+
+</html>
