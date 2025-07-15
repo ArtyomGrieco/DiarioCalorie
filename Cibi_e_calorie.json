@@ -207,5 +207,61 @@
         "proteine": 0.6, 
         "grassi": 0.6,
         "fibre": 0
+    },
+    "pane (mezzo panino)": {
+        "unità": "porzione",
+        "calorie": 130,
+        "carboidrati": 26,
+        "proteine": 4, 
+        "grassi": 1,
+        "fibre": 1
+    },
+    "pane (panino intero)": {
+        "unità": "porzione",
+        "calorie": 260,
+        "carboidrati": 52,
+        "proteine": 8, 
+        "grassi": 2,
+        "fibre": 2
+    },
+    "salame": {
+        "unità": "grammi",
+        "calorie": 410,
+        "carboidrati": 0,
+        "proteine": 20, 
+        "grassi": 35,
+        "fibre": 0
+    },
+    "prosciutto cotto": {
+        "unità": "grammi",
+        "calorie": 145,
+        "carboidrati": 1,
+        "proteine": 20, 
+        "grassi": 5,
+        "fibre": 0
+    },
+    "prosciutto crudo": {
+        "unità": "grammi",
+        "calorie": 260,
+        "carboidrati": 0,
+        "proteine": 28, 
+        "grassi": 18,
+        "fibre": 0
+    },
+    "tacchino affettato": {
+        "unità": "grammi",
+        "calorie": 110,
+        "carboidrati": 1,
+        "proteine": 22, 
+        "grassi": 1,
+        "fibre": 0
+    },
+    "bologna / mortadella": {
+        "unità": "grammi",
+        "calorie": 300,
+        "carboidrati": 1,
+        "proteine": 14, 
+        "grassi": 28,
+        "fibre": 0
     }
 }
