@@ -2,12 +2,12 @@
 <html lang="it">
 <head>
 
-    <title>Storico</title>
+    <title>Storico💛</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <style>
-        /* Sfondo spaziale viola-rosato */
+        
         body {
             margin: 0;
             padding: 20px;
@@ -129,7 +129,7 @@
             margin-bottom: 6px;
         }
 
-        /* Scrollbar personalizzata per la lista cibi */
+        
         #lista-cibi-giorno::-webkit-scrollbar {
             width: 8px;
         }
@@ -145,9 +145,10 @@
 
     <header>
         <nav>
-            <a href="index.html"><strong>Oggi</strong></a> |
+           |<a href="index.html"><strong>Oggi</strong></a> |
             <a href="storico.html"><strong>Storico</strong></a> |
             <a href="diario.html"><strong>Diario</strong></a> |
+            <a href="lettura.html"><strong>Leggi</strong></a> |
         </nav>
     </header>
 
@@ -166,87 +167,65 @@
     </div>
 
     <script>
-        let giornoAttualmenteMostrato = null;
+    function caricaGiorniStorico() {
+        const listaGiorni = document.getElementById('lista-giorni'); 
+        listaGiorni.innerHTML = '';
 
-        function caricaGiorniStorico() {
-            const listaGiorni = document.getElementById('lista-giorni'); 
-            listaGiorni.innerHTML = '';
-
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-
-                const li = document.createElement('li');
-                li.textContent = key;
-
-                const btnDettagli = document.createElement('button');
-                btnDettagli.textContent = '➕ informazioni';
-                btnDettagli.style.cursor = 'pointer';
-                btnDettagli.style.marginLeft = '10px';
-
-                btnDettagli.addEventListener('click', () => {
-                    mostraDettagliGiorno(key);
-                });
-
-                const btnCancella = document.createElement('button');
-                btnCancella.textContent = '🧹 Pulisci giornata';
-                btnCancella.style.marginLeft = '10px';
-
-                btnCancella.addEventListener('click', () => {
-                    localStorage.removeItem(key);
-                    li.remove(); 
-                    alert(`Dati del giorno ${key} cancellati!`);
-
-                    // Se stavamo visualizzando i dettagli di questo giorno, nascondili
-                    if (giornoAttualmenteMostrato === key) {
-                        document.getElementById('dettagli-giorno').style.display = 'none';
-                        giornoAttualmenteMostrato = null;
-                    }
-                });
-
-                li.appendChild(btnDettagli);
-                li.appendChild(btnCancella);
-                listaGiorni.appendChild(li);
-            }
+        let chiavi = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            try {
+                const parsed = JSON.parse(value);
+                if (parsed && parsed.calorie !== undefined) { 
+                    chiavi.push({ key, data: parsed });
+                }
+            } catch (e) {}
         }
 
-        function mostraDettagliGiorno(data) {
-            const dettagliBox = document.getElementById('dettagli-giorno');
+        
+        chiavi.sort((a, b) => {
+            const d1 = new Date(a.key.split("/").reverse().join("-"));
+            const d2 = new Date(b.key.split("/").reverse().join("-"));
+            return d2 - d1;
+        });
 
-            if (giornoAttualmenteMostrato === data) {
-                dettagliBox.style.display = 'none';
-                giornoAttualmenteMostrato = null;
-                return;
-            }
+        for (let { key, data } of chiavi) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <div style="width: 100%;">
+                    <strong>📅 ${key}</strong><br/>
+                    <p style="margin: 8px 0;">
+                        <strong>Calorie:</strong> ${data.calorie || 0} |
+                        <strong>Proteine:</strong> ${(data.proteine || 0).toFixed(1)} g |
+                        <strong>Grassi:</strong> ${(data.grassi || 0).toFixed(1)} g |
+                        <strong>Carboidrati:</strong> ${(data.carboidrati || 0).toFixed(1)} g |
+                        <strong>Fibre:</strong> ${(data.fibre || 0).toFixed(1)} g
+                    </p>
+                    <details style="margin-bottom: 8px;">
+                        <summary style="cursor: pointer; color: #f72585;">🍽️ Cibi inseriti</summary>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            ${(data.cibi || []).map(c => `<li>${c}</li>`).join("") || "<li>Nessun cibo inserito</li>"}
+                        </ul>
+                    </details>
+                    
 
-            const datiSalvati = localStorage.getItem(data);
-            if (!datiSalvati) {
-                alert('Nessun dato per questo giorno!');
-                return;
-            }
-
-            const datiGiorno = JSON.parse(datiSalvati);
-
-            document.getElementById('giorno-selezionato').textContent = data;
-            document.getElementById('calorie').textContent = datiGiorno.calorie || 0;
-            document.getElementById('proteine').textContent = (datiGiorno.proteine || 0).toFixed(1);
-            document.getElementById('grassi').textContent = (datiGiorno.grassi || 0).toFixed(1);
-            document.getElementById('carboidrati').textContent = (datiGiorno.carboidrati || 0).toFixed(1);
-            document.getElementById('fibre').textContent = (datiGiorno.fibre || 0).toFixed(1);
-
-            const listaCibiGiorno = document.getElementById('lista-cibi-giorno');
-            listaCibiGiorno.innerHTML = '';
-            (datiGiorno.cibi || []).forEach(cibo => {
-                const li = document.createElement('li');
-                li.textContent = cibo;
-                listaCibiGiorno.appendChild(li);
-            });
-
-            dettagliBox.style.display = 'block';
-            giornoAttualmenteMostrato = data;
+                    <button onclick="cancellaGiornata('${key}')">🧹 Cancella giornata</button>
+                </div>
+            `;
+            listaGiorni.appendChild(li);
         }
+    }
 
+    function cancellaGiornata(chiave) {
+        localStorage.removeItem(chiave);
+        alert(`Giornata ${chiave} eliminata.`);
         caricaGiorniStorico();
-    </script>
+    }
+
+    caricaGiorniStorico();
+</script>
+
 
 </body>
 </html>

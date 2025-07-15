@@ -1,28 +1,156 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Diario Pasto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-image: url('https://tse3.mm.bing.net/th/id/OIP._dE7l9q78yhZ6VkXcRB6BQHaNK?rs=1&pid=ImgDetMain&o=7&rm=3');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            text-shadow: 1px 1px 2px #000;
+        }
 
-    <head>
+        header {
+          width: 100%;
+          margin: 0;
+          background: linear-gradient(135deg, #6a0572, #b13a8d);
+          padding: 12px 0;
+          position: sticky; 
+          top: 0;
+          z-index: 100;
+          box-shadow: 0 2px 8px rgba(107, 11, 80, 0.8);
+          text-align: center;
+        }
 
-        <title>
+        nav a {
+          color: #f72585;
+          font-weight: 700;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 1.1rem;
+          transition: color 0.3s ease;
+        }
 
-            Diario
+        nav a:hover {
+          color: #fff;
+          text-shadow: 0 0 8px #f72585;
+        }
 
-        </title>
+        h1 {
+            text-align: center;
+            background-color: rgba(0,0,0,0.4);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+
+        textarea {
+            background-color: #7f0bb1af;
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        button {
+    display: block;          
+    margin: 20px auto 0;     
+    padding: 10px 20px;
+    border: none;
+    background: #c77dff;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #a259ff;
+}
 
 
+        form {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
 
-    </head>
+    <nav>
+        <a href="index.html"><strong>Oggi</strong></a> |
+        <a href="storico.html"><strong>Storico</strong></a> |
+        <a href="diario.html"><strong>Diario</strong></a> |
+        <a href="lettura.html"><strong>Leggi</strong></a> |
+    </nav>
 
-    <body>
+    <h1>🍽 Diario 💛</h1>
 
-        <nav>
+    <form id="diarioForm">
+        <label for="fame">Hai mangiato per fame o sei stata obbligata?</label>
+        <textarea id="fame" rows="2"></textarea>
 
-            <a href="index.html"><strong>Oggi</strong></a> |
-            <a href="storico.html"><strong>Storico</strong></a> |
-            <a href="diario.html"><strong>Diario</strong></a> |
+        <label for="quantita">Ti sembra di aver mangiato troppo, poco o il giusto?</label>
+        <textarea id="quantita" rows="2"></textarea>
 
-        </nav>
+        <label for="emozioni">Durante il pasto hai avvertito sensazioni di nausea o sconforto?<br></label>
+        <textarea id="emozioni" rows="2"></textarea>
 
-    </body>
+        <label for="appetito">E' successo qualcosa che ti ha fatto passare l'appetito?</label>
+        <textarea id="appetito" rows="2"></textarea>
 
+        <label for="stato">Come ti senti ora? Descrivi il tuo stato d'animo, emotivo e mentale.</label>
+        <textarea id="stato" rows="2"></textarea>
+
+        <label for="note">Sfoghi. qui puoi dire tutto quello che vuoi senza seguire le domande ♥</label>
+        <textarea id="note" rows="6"></textarea> 
+
+        <button type="submit">💾 Salva voce</button>
+    </form>
+
+    <script>
+        document.getElementById('diarioForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const now = new Date();
+            const orario = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const data = now.toLocaleDateString();
+
+            const entry = {
+                data,
+                ora: orario,
+                fame: document.getElementById('fame').value,
+                quantita: document.getElementById('quantita').value,
+                emozioni: document.getElementById('emozioni').value,
+                note: document.getElementById('note').value,
+                appetito: document.getElementById('appetito').value,
+                stato: document.getElementById('stato').value
+            };
+
+            let diarioPastopasto = JSON.parse(localStorage.getItem('diarioPastopasto')) || [];
+            diarioPastopasto.push(entry);
+            localStorage.setItem('diarioPastopasto', JSON.stringify(diarioPastopasto));
+
+            alert("Voce salvata con successo! ✅");
+
+            this.reset();
+        });
+    </script>
+
+</body>
 </html>
+

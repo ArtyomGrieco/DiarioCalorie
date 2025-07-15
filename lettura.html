@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Entrate Diario💛</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      min-height: 100vh;
+      background: url('https://4kwallpapers.com/images/wallpapers/universe-spiral-1920x1080-10972.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #e0d7f3;
+    }
+
+    header {
+      width: 100%;
+      background: rgba(38, 10, 53, 0.85);
+      padding: 10px 0;
+      box-shadow: 0 0 15px rgba(231, 154, 222, 0.6);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      text-align: center;
+    }
+
+    nav a {
+      color: #f72585;
+      font-weight: 700;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 1.1rem;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    #container {
+      background: rgba(38, 10, 53, 0.85);
+      padding: 25px 30px;
+      border-radius: 15px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 0 15px rgba(231, 154, 222, 0.6);
+      margin: 30px auto 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: 700;
+      color: #f72585;
+      text-shadow: 0 0 8px #f72585aa;
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #d17ecf;
+      outline: none;
+      margin: 15px 0;
+    }
+
+    details[open] summary {
+      color: #f72585;
+      text-shadow: 0 0 6px #b13a8d;
+    }
+
+    ul.voci-giornaliere {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.voci-giornaliere li {
+      background: rgba(74, 33, 105, 0.8);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px #b13a8d88;
+      color: #f0e6f6;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    strong {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #ff66b2;
+      text-shadow: 0 0 5px #ff66b2aa;
+    }
+
+    details p {
+      margin: 8px 0 0 15px;
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #e0d7f3;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .delete-entry {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: #ff5e78;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .delete-entry:hover {
+      background: #e63950;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      | <a href="index.html"><strong>Oggi</strong></a> |
+      <a href="storico.html"><strong>Storico</strong></a> |
+      <a href="diario.html"><strong>Diario</strong></a> |
+      <a href="lettura.html"><strong>Leggi</strong></a> |
+    </nav>
+  </header>
+
+  <div id="container">
+    <h1>Entrate diario💛</h1>
+    <div id="diario"></div>
+  </div>
+
+  <script>
+    const container = document.getElementById('diario');
+    const diarioRaw = localStorage.getItem('diarioPastopasto');
+
+    if (!diarioRaw) {
+      container.innerHTML = '<p>Nessuna voce registrata.</p>';
+    } else {
+      const diarioArray = JSON.parse(diarioRaw).reverse();
+      const strutturato = {};
+
+      diarioArray.forEach(entry => {
+        const [giorno, mese, anno] = entry.data.split('/');
+        const chiaveMese = `${anno}-${mese}`;
+        const chiaveGiorno = `${anno}-${mese}-${giorno}`;
+
+        if (!strutturato[chiaveMese]) strutturato[chiaveMese] = {};
+        if (!strutturato[chiaveMese][chiaveGiorno]) strutturato[chiaveMese][chiaveGiorno] = [];
+
+        strutturato[chiaveMese][chiaveGiorno].push(entry);
+      });
+
+      const mesiOrdinati = Object.keys(strutturato).sort().reverse();
+
+      mesiOrdinati.forEach(chiaveMese => {
+        const [anno, mese] = chiaveMese.split('-');
+        const nomeMese = new Date(`${anno}-${mese}-01`).toLocaleString('it-IT', { month: 'long', year: 'numeric' });
+        const sezioneMese = document.createElement('details');
+        sezioneMese.innerHTML = `<summary>📅 ${nomeMese.charAt(0).toUpperCase() + nomeMese.slice(1)}</summary>`;
+
+        const giorni = strutturato[chiaveMese];
+        const giorniOrdinati = Object.keys(giorni).sort().reverse();
+
+        giorniOrdinati.forEach(chiaveGiorno => {
+          const [anno, mese, giorno] = chiaveGiorno.split('-');
+          const sezioneGiorno = document.createElement('details');
+          sezioneGiorno.innerHTML = `<summary>🗓 Giorno: ${giorno}/${mese}/${anno}</summary>`;
+
+          const lista = document.createElement('ul');
+          lista.className = 'voci-giornaliere';
+
+          giorni[chiaveGiorno].forEach(entry => {
+            const li = document.createElement('li');
+            const id = `${entry.data}|${entry.ora}`;
+
+            li.innerHTML = `
+              <strong>🕒 Ora:</strong> ${entry.ora}
+              <details>
+                <summary>Mostra dettagli</summary>
+                <p><strong>Mangiato per fame o...?</strong><br> ${entry.fame || '-'}</p>
+                <p><strong>Quantità percepita:</strong><br> ${entry.quantita || '-'}</p>
+                <p><strong>Sensazioni di nausa o sconforto durante e/o dopo il pasto?</strong><br> ${entry.emozioni || '-'}</p>
+                <p><strong>Stato d'animo, emotivo e mentale:</strong><br> ${entry.stato || '-'}</p>
+                <p><strong>E' successo qualcosa che ha fatto perdere l'appetito?</strong><br> ${entry.appetito || '-'}</p>
+                <p><strong>Pensieri, sfoghi o note extra:</strong><br> ${entry.note || '-'}</p>
+              </details>
+              <button class="delete-entry" data-id="${id}">🗑 Elimina</button>
+            `;
+            lista.appendChild(li);
+          });
+
+          sezioneGiorno.appendChild(lista);
+          sezioneMese.appendChild(sezioneGiorno);
+        });
+
+        container.appendChild(sezioneMese);
+      });
+    }
+
+    // Listener per eliminare una singola voce
+    container.addEventListener('click', function (e) {
+      if (e.target.classList.contains('delete-entry')) {
+        const id = e.target.getAttribute('data-id');
+        const [data, ora] = id.split('|');
+
+        let diario = JSON.parse(localStorage.getItem('diarioPastopasto')) || [];
+        diario = diario.filter(entry => !(entry.data === data && entry.ora === ora));
+        localStorage.setItem('diarioPastopasto', JSON.stringify(diario));
+
+        alert("Voce eliminata! ❌");
+        location.reload(); 
+      }
+    });
+  </script>
+</body>
+</html>
