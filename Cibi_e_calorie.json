@@ -290,10 +290,26 @@
     },
     "mela": {
         "unità": "porzione",
-        "calorie": 500,
-        "carboidrati": 4.6,
-        "proteine": 22, 
-        "grassi": 55,
-        "fibre": 0
+        "calorie": 80,
+        "carboidrati": 24,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 3
+    },
+    "banana": {
+        "unità": "porzione",
+        "calorie": 105,
+        "carboidrati": 21,
+        "proteine": 1.5, 
+        "grassi": 0,
+        "fibre": 3
+    },
+    "macedonia di frutta": {
+        "unità": "porzione",
+        "calorie": 90,
+        "carboidrati": 13,
+        "proteine": 1, 
+        "grassi": 0,
+        "fibre": 2
     },
 }
