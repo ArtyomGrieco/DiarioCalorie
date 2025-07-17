@@ -263,5 +263,37 @@
         "proteine": 14, 
         "grassi": 28,
         "fibre": 0
-    }
+    },
+    "mandorle (senza guscio) [grammi]": {
+        "unità": "grammi",
+        "calorie": 500,
+        "carboidrati": 4.6,
+        "proteine": 22, 
+        "grassi": 55,
+        "fibre": 13
+    },
+    "mandorle (porzione)": {
+        "unità": "porzione",
+        "calorie": 12,
+        "carboidrati": 0.1,
+        "proteine": 0.4, 
+        "grassi": 1,
+        "fibre": 0.3
+    }, 
+    "pollo e patate": {
+        "unità": "porzione",
+        "calorie": 400,
+        "carboidrati": 0,
+        "proteine": 74, 
+        "grassi": 8,
+        "fibre": 0
+    },
+    "mela": {
+        "unità": "porzione",
+        "calorie": 500,
+        "carboidrati": 4.6,
+        "proteine": 22, 
+        "grassi": 55,
+        "fibre": 0
+    },
 }
