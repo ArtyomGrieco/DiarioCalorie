@@ -320,4 +320,12 @@
         "grassi": 6,
         "fibre": 6
     },
+    "pasta al pesto": {
+        "unità": "grammi",
+        "calorie": 450,
+        "carboidrati": 60,
+        "proteine": 15, 
+        "grassi": 6,
+        "fibre": 6
+    },
 }
