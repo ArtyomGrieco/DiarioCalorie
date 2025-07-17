@@ -312,4 +312,12 @@
         "grassi": 0,
         "fibre": 2
     },
+    "pasta al pesto di lenticchie": {
+        "unità": "grammi",
+        "calorie": 400,
+        "carboidrati": 60,
+        "proteine": 15, 
+        "grassi": 6,
+        "fibre": 6
+    },
 }
