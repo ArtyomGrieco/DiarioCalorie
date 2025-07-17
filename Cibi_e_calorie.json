@@ -328,4 +328,13 @@
         "grassi": 6,
         "fibre": 6
     },
+    "broccoli e piselli": {
+        "unità": "porzione",
+        "calorie": 300,
+        "carboidrati": 12,
+        "proteine": 5, 
+        "grassi": 1,
+        "fibre": 6
+    },
+
 }
