@@ -263,5 +263,78 @@
         "proteine": 14, 
         "grassi": 28,
         "fibre": 0
+    },
+    "mandorle (senza guscio) [grammi]": {
+        "unità": "grammi",
+        "calorie": 500,
+        "carboidrati": 4.6,
+        "proteine": 22, 
+        "grassi": 55,
+        "fibre": 13
+    },
+    "mandorle (porzione)": {
+        "unità": "porzione",
+        "calorie": 12,
+        "carboidrati": 0.1,
+        "proteine": 0.4, 
+        "grassi": 1,
+        "fibre": 0.3
+    }, 
+    "pollo e patate": {
+        "unità": "porzione",
+        "calorie": 400,
+        "carboidrati": 0,
+        "proteine": 74, 
+        "grassi": 8,
+        "fibre": 0
+    },
+    "mela": {
+        "unità": "porzione",
+        "calorie": 80,
+        "carboidrati": 24,
+        "proteine": 0, 
+        "grassi": 0,
+        "fibre": 3
+    },
+    "banana": {
+        "unità": "porzione",
+        "calorie": 105,
+        "carboidrati": 21,
+        "proteine": 1.5, 
+        "grassi": 0,
+        "fibre": 3
+    },
+    "macedonia di frutta": {
+        "unità": "porzione",
+        "calorie": 90,
+        "carboidrati": 13,
+        "proteine": 1, 
+        "grassi": 0,
+        "fibre": 2
+    },
+    "pasta al pesto di lenticchie": {
+        "unità": "grammi",
+        "calorie": 400,
+        "carboidrati": 60,
+        "proteine": 15, 
+        "grassi": 6,
+        "fibre": 6
+    },
+    "pasta al pesto": {
+        "unità": "grammi",
+        "calorie": 450,
+        "carboidrati": 60,
+        "proteine": 15, 
+        "grassi": 6,
+        "fibre": 6
+    },
+    "broccoli e piselli": {
+        "unità": "porzione",
+        "calorie": 300,
+        "carboidrati": 12,
+        "proteine": 5, 
+        "grassi": 1,
+        "fibre": 6
     }
+
 }
