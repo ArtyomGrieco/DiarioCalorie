@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <style>
-        /* Sfondo spazio viola-rosato */
+        
         body {
           margin: 0;
           padding: 0;
@@ -28,7 +28,7 @@
           margin: 0;
           background: linear-gradient(135deg, #6a0572, #b13a8d);
           padding: 12px 0;
-          position: sticky; /* rimane in cima quando scrolli */
+          position: sticky; 
           top: 0;
           z-index: 100;
           box-shadow: 0 2px 8px rgba(107, 11, 80, 0.8);
@@ -54,14 +54,14 @@
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          height: calc(100vh - 60px); /* sottrae l'altezza dell'header */
+          height: calc(100vh - 60px); 
           padding-top: 20px;
         }
 
-        /* Bottone centrato e rotondo */
+        
         button {
           padding: 12px 20px;
-          background-color: #00aaff; /* viola */
+          background-color: #00aaff; 
           border: none;
           border-radius: 25px;
           color: white;
@@ -401,7 +401,7 @@
             if (unita === "grammi") {
                 moltiplicatore = quantita / 100;
             } else {
-                moltiplicatore = quantita; // ad esempio: 2 porzioni = 2x i valori base
+                moltiplicatore = quantita; 
             }
 
             const cal = info.calorie * moltiplicatore;
